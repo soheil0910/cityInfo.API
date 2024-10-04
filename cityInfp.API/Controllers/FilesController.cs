@@ -8,8 +8,7 @@ using System.Configuration;
 
 namespace CityInfo.API.Controllers
 {
-    [Route("api/[controller]")]
-    [Authorize]
+    [Route("api/[controller]")] 
     [ApiController]
     public class FilesController : ControllerBase
     {
