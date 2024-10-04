@@ -1,6 +1,6 @@
-@cityInfp.API_HostAddress = http://localhost:5144
+@CityInfo.API_HostAddress = http://localhost:5144
 
-GET {{cityInfp.API_HostAddress}}/weatherforecast/
+GET {{CityInfo.API_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###

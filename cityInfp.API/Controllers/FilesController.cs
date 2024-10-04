@@ -1,13 +1,15 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.StaticFiles;
 using NuGet.Packaging;
 using System.Configuration;
 
-namespace cityInfp.API.Controllers
+namespace CityInfo.API.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class FilesController : ControllerBase
     {
@@ -32,11 +34,12 @@ namespace cityInfp.API.Controllers
         [HttpGet("{filename}")]
         public ActionResult GetFile(string filename)
         {
-            string pathToFile = $"{_configuration.GetConnectionString("files")}{filename}";
+           
+            string pathToFile = $"{_configuration["FileName:files"]}{filename}";
 
 
-            
 
+      
 
 
 

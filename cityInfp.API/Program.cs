@@ -1,4 +1,4 @@
-﻿using cityInfp.API;
+﻿using CityInfo.API;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.StaticFiles;
 
@@ -6,13 +6,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers(options =>
-{
-    //options.OutputFormatters.RemoveType(typeof(SystemTextJsonOutputFormatter));
-    //options.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+builder.Services.AddControllers()
+    .AddNewtonsoftJson()
+    .AddXmlDataContractSerializerFormatters();
 
-    options.ReturnHttpNotAcceptable = true;
-}).AddXmlDataContractSerializerFormatters();
+//    (options =>
+//{
+//    //options.OutputFormatters.RemoveType(typeof(SystemTextJsonOutputFormatter));
+//    //options.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+
+//    //options.ReturnHttpNotAcceptable = true;
+//});
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

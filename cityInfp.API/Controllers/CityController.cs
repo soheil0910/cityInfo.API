@@ -1,7 +1,7 @@
 ﻿using CityInfo.API;
 using Microsoft.AspNetCore.Mvc;
 
-namespace cityInfp.API.Controllers
+namespace CityInfo.API.Controllers
 {
 
     [ApiController]

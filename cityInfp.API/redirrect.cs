@@ -1,4 +1,4 @@
-﻿namespace cityInfp.API
+﻿namespace CityInfo.API
 {
     public class redirrect
     {
