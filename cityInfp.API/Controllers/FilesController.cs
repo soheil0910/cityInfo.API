@@ -37,7 +37,6 @@ namespace CityInfo.API.Controllers
             string pathToFile = $"{_configuration["FileName:files"]}{filename}";
 
 
-
       
 
 

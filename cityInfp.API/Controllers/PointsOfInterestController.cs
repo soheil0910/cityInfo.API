@@ -39,15 +39,18 @@ namespace CityInfo.API.Controllers
                 .FirstOrDefault(c => c.Id == cityId);
 
 
-            _logger.LogInformation($"cityId{cityId} is lode");
-            _logger.LogDebug("LogDebug");
-            _logger.LogWarning("LogWarning");
-            _logger.LogCritical("LogCritical");
-            _logger.LogError("LogError");
-            _logger.LogTrace("LogTrace");
+         
            
             if (city == null)
             {
+                _logger.LogInformation($"cityId{cityId} is lode");
+                _logger.LogDebug("LogDebug");
+                _logger.LogWarning("LogWarning");
+                _logger.LogCritical("LogCritical");
+                _logger.LogError("LogError");
+                _logger.LogTrace("LogTrace");
+                
+
                 _logger.LogWarning($"cityId{cityId} is not fond");
                 return NotFound();
             }

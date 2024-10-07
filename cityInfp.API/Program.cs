@@ -1,10 +1,25 @@
 ﻿using CityInfo.API;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.StaticFiles;
+using Serilog;
+using System.Configuration;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Debug()
+    .WriteTo.Console()
+    .WriteTo.File(builder.Configuration.GetConnectionString("FileLog_Address"), rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+
+
+
 // Add services to the container.
+
+
+builder.Host.UseSerilog();
 
 builder.Services.AddControllers()
     .AddNewtonsoftJson()
@@ -19,8 +34,8 @@ builder.Services.AddControllers()
 //});
 ///////////////////////////////////////////////////////
 
-builder.Logging.ClearProviders();
-builder.Logging.AddConsole();
+//builder.Logging.ClearProviders();
+//builder.Logging.AddConsole();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
