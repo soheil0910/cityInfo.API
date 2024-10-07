@@ -9,7 +9,7 @@ namespace CityInfo.API.Models
         [MaxLength(100)]
         public string Name { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "توضیحات را به درستی وارد کنید ")]
+        //[Required(ErrorMessage = "توضیحات را به درستی وارد کنید ")]
         [MaxLength(500)]
         public string? Description { get; set; }
     }

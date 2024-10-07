@@ -8,7 +8,7 @@ namespace CityInfo.API.Controllers
 {
     //[Route("api/[controller]")]
 
-
+    
 
 
     [Route("api/[controller]/{cityId}/pointsofinterest")]
@@ -17,20 +17,52 @@ namespace CityInfo.API.Controllers
     public class PointsOfInterestController : ControllerBase
     {
 
+        private readonly ILogger<PointsOfInterestController> _logger;
+
+        public PointsOfInterestController(ILogger<PointsOfInterestController> logger)
+        {
+            _logger = logger;
+            
+        }
+
         [HttpGet]
         public ActionResult<IEnumerable<PointOfInterestDto>>
            GetPointsOfInterest(int cityId)
         {
-            var city =
+            try
+            {
+                throw new Exception("Exeption sample ...");
+
+
+                var city =
                 CitiesDataStore.current.Cities
                 .FirstOrDefault(c => c.Id == cityId);
 
+
+            _logger.LogInformation($"cityId{cityId} is lode");
+            _logger.LogDebug("LogDebug");
+            _logger.LogWarning("LogWarning");
+            _logger.LogCritical("LogCritical");
+            _logger.LogError("LogError");
+            _logger.LogTrace("LogTrace");
+           
             if (city == null)
             {
+                _logger.LogWarning($"cityId{cityId} is not fond");
                 return NotFound();
             }
 
             return Ok(city.PointsOfInterest);
+
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogCritical($"\n\n\nExeption getting \n {cityId}\n\n \n\n {ex.Message}",ex);
+                return StatusCode(500, "A Problem happend while ....");
+            }
+
+
         }
 
         [HttpGet("{pointOfInterestId}", Name = "GetPointOfInterest")]
@@ -166,6 +198,12 @@ namespace CityInfo.API.Controllers
                 return BadRequest();
             }
 
+
+            if (!TryValidateModel(pointOfInterestToPatch))
+            {
+                return BadRequest(modelState: ModelState);
+            }
+
             pointOfInterestFromStore.Name = pointOfInterestToPatch.Name;
             pointOfInterestFromStore.Description = pointOfInterestToPatch.Description;
 
@@ -175,7 +213,32 @@ namespace CityInfo.API.Controllers
         #endregion
 
 
+        #region Delete
+        [HttpDelete("{pontiOfInterestId}")]
+        public ActionResult Delete(int cityId,int pontiOfInterestId)
+        {
 
+            //find  city
+            var city = CitiesDataStore.current.Cities
+                .FirstOrDefault(c => c.Id == cityId);
+            if (city == null)
+                return NotFound();
+
+            // find point of interest
+            var point = city.PointsOfInterest
+                .FirstOrDefault(p => p.Id == pontiOfInterestId);
+            if (point == null)
+                return NotFound();
+
+
+            city.PointsOfInterest.Remove(point);
+
+            return NoContent();
+        }
+
+
+
+        #endregion
 
 
 

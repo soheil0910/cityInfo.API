@@ -17,7 +17,10 @@ builder.Services.AddControllers()
 
 //    //options.ReturnHttpNotAcceptable = true;
 //});
+///////////////////////////////////////////////////////
 
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
