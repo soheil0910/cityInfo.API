@@ -29,9 +29,9 @@ namespace CityInfo.API.Controllers
         public ActionResult<IEnumerable<PointOfInterestDto>>
            GetPointsOfInterest(int cityId)
         {
-            try
-            {
-                throw new Exception("Exeption sample ...");
+            //try
+            //{
+            //    throw new Exception("Exeption sample ...");
 
 
                 var city =
@@ -55,12 +55,12 @@ namespace CityInfo.API.Controllers
             return Ok(city.PointsOfInterest);
 
 
-            }
-            catch (Exception ex)
-            {
-                _logger.LogCritical($"\n\n\nExeption getting \n {cityId}\n\n \n\n {ex.Message}",ex);
-                return StatusCode(500, "A Problem happend while ....");
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    _logger.LogCritical($"\n\n\nExeption getting \n {cityId}\n\n \n\n {ex.Message}",ex);
+            //    return StatusCode(500, "A Problem happend while ....");
+            ////}
 
 
         }
