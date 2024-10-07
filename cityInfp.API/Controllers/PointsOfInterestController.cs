@@ -43,6 +43,8 @@ namespace CityInfo.API.Controllers
            
             if (city == null)
             {
+                #region Log
+
                 _logger.LogInformation($"cityId{cityId} is lode");
                 _logger.LogDebug("LogDebug");
                 _logger.LogWarning("LogWarning");
@@ -52,6 +54,9 @@ namespace CityInfo.API.Controllers
                 
 
                 _logger.LogWarning($"cityId{cityId} is not fond");
+
+                #endregion
+
                 return NotFound();
             }
 

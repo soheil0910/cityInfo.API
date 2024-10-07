@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.StaticFiles;
 using Serilog;
-using System.Configuration;
 
 
 var builder = WebApplication.CreateBuilder(args);

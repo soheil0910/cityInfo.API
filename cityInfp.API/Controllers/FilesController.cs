@@ -25,7 +25,7 @@ namespace CityInfo.API.Controllers
         public ActionResult GetListFile()
         {
            
-            string[] files = Directory.GetFiles("Files/");
+            string[] files = Directory.GetFiles(_configuration["FileName:files"]);
             return Ok(files.Select(c => c.Substring(6)));
         }
 
