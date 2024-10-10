@@ -8,6 +8,17 @@ namespace CityInfo.API.Controllers
     [Route("api/[Controller]")]
     public class CityController : ControllerBase
     {
+        private readonly CitiesDataStore _citiesDataStore;
+
+        public CityController(CitiesDataStore citiesDataStore)
+        {
+
+
+            _citiesDataStore = citiesDataStore;
+
+        }
+
+
         [HttpGet]
         public ActionResult GetCity()
         {
@@ -23,7 +34,7 @@ namespace CityInfo.API.Controllers
             ////return BadRequest(oor);
 
 
-            return Ok(CitiesDataStore.current.Cities);
+            return Ok(_citiesDataStore.Cities);
 
         }
 

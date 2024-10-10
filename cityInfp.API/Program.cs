@@ -1,4 +1,5 @@
 ﻿using CityInfo.API;
+using CityInfo.API.Services;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.StaticFiles;
 using Serilog;
@@ -11,14 +12,13 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .WriteTo.File(builder.Configuration.GetConnectionString("FileLog_Address"), rollingInterval: RollingInterval.Day)
     .CreateLogger();
-
+builder.Host.UseSerilog();
 
 
 
 // Add services to the container.
 
 
-builder.Host.UseSerilog();
 
 builder.Services.AddControllers()
     .AddNewtonsoftJson()
@@ -41,6 +41,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
+builder.Services.AddTransient<LocalMailService>();
+builder.Services.AddSingleton<CitiesDataStore>();
 
 var app = builder.Build();
 

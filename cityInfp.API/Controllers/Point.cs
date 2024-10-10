@@ -10,12 +10,32 @@ namespace CityInfo.API.Controllers
     [ApiController]
     public class Point : ControllerBase
     {
+
+        private readonly CitiesDataStore _citiesDataStore;
+
+        public Point(CitiesDataStore citiesDataStore)
+        {
+
+
+            _citiesDataStore = citiesDataStore;
+
+        }
+
+
+
+
+
+
+
+
+
+
         // GET: api/<Point>
         [HttpGet]
         public ActionResult Get()
         {
             //return new string[] { "value1", "value2" };
-            return Ok(CitiesDataStore.current.Cities);
+            return Ok(_citiesDataStore.Cities);
 
         }
 
@@ -23,14 +43,14 @@ namespace CityInfo.API.Controllers
         [HttpGet("{id}")]
         public ActionResult Get(int id)
         {
-            return Ok(CitiesDataStore.current.Cities.FirstOrDefault(x=>x.Id==id));
+            return Ok(_citiesDataStore.Cities.FirstOrDefault(x=>x.Id==id));
         }
 
 
         [HttpGet("{idShahr},{ids}")]
         public ActionResult Get(int idShahr, int ids)
         {
-            return Ok(CitiesDataStore.current.Cities.FirstOrDefault(x => x.Id == idShahr).PointsOfInterest.FirstOrDefault(c => c.Id == ids));
+            return Ok(_citiesDataStore.Cities.FirstOrDefault(x => x.Id == idShahr).PointsOfInterest.FirstOrDefault(c => c.Id == ids));
         }
 
 
