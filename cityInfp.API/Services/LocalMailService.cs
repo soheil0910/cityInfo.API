@@ -3,11 +3,16 @@ using System.Net;
 
 namespace CityInfo.API.Services
 {
-    public class LocalMailService
+    public class LocalMailService : IMailService
     {
+        private readonly string _mailTo = string.Empty;
+        private readonly string _mailFrom = string.Empty;
 
-        string _mailTo = "ali0910hack@gmail.com";
-        string _mailFrom = "ali0910hack@gmail.com";
+        public LocalMailService(IConfiguration configuration)
+        {
+            _mailTo = configuration["mailSetting:mailToAddress"];
+            _mailFrom = configuration["mailSetting:mailFromAddress"];
+        }
 
         public void Send(string subject, string message)
         {
@@ -24,7 +29,7 @@ namespace CityInfo.API.Services
         {
             try
             {
-                string _mailFrom = "ali0910hack@gmail.com";
+                string _mailFrom = "log@Toplearn.com";
                 MailMessage message = new MailMessage();
                 SmtpClient smtp = new SmtpClient();
                 message.From = new MailAddress(_mailFrom);
@@ -36,7 +41,7 @@ namespace CityInfo.API.Services
                 smtp.Host = "smtp.gmail.com"; //for gmail host  
                 smtp.EnableSsl = true;
                 smtp.UseDefaultCredentials = false;
-                smtp.Credentials = new NetworkCredential("ali0910hack@gmail.com", "123456789#");
+                smtp.Credentials = new NetworkCredential("FromMailAddress", "password");
                 smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtp.Send(message);
             }

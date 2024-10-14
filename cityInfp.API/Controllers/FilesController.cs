@@ -13,19 +13,25 @@ namespace CityInfo.API.Controllers
     public class FilesController : ControllerBase
     {
 
+        //private readonly IConfiguration _configuration;
+
         public FileExtensionContentTypeProvider fileProvider;
-        private readonly IConfiguration _configuration;
+        private readonly string _fileAddress;
         public FilesController(FileExtensionContentTypeProvider fileContentTypeProvider, IConfiguration configuration)
         {
+            //_configuration = configuration;
+
             fileProvider = fileContentTypeProvider;
-            _configuration = configuration;
+            _fileAddress = configuration["FileName"];
         }
 
         [HttpGet]
         public ActionResult GetListFile()
         {
            
-            string[] files = Directory.GetFiles(_configuration["FileName:files"]);
+            //string[] files = Directory.GetFiles(_configuration["FileName"]);
+
+            string[] files = Directory.GetFiles(_fileAddress);
             return Ok(files.Select(c => c.Substring(6)));
         }
 
@@ -34,7 +40,7 @@ namespace CityInfo.API.Controllers
         public ActionResult GetFile(string filename)
         {
            
-            string pathToFile = $"{_configuration["FileName:files"]}{filename}";
+            string pathToFile = $"{_fileAddress}{filename}";
 
 
       
@@ -54,6 +60,7 @@ namespace CityInfo.API.Controllers
             }
 
             return File(bytes, ContentType, Path.GetFileName(pathToFile));
+            //return File(bytes, ContentType, "هر اسمی دوست داری");
 
         }
 

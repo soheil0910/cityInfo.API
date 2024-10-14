@@ -19,17 +19,23 @@ namespace CityInfo.API.Controllers
     {
 
         private readonly ILogger<PointsOfInterestController> _logger;
-        private readonly LocalMailService _localMailService;
+        private readonly IMailService _localMailService;
         private readonly CitiesDataStore _citiesDataStore;
 
+      
+
+
+
+
         public PointsOfInterestController(ILogger<PointsOfInterestController> logger
-            , LocalMailService localMailService
-            , CitiesDataStore citiesDataStore)
+            , IMailService MailService
+            , CitiesDataStore citiesDataStore
+            )
         {
             _logger = logger;
-            _localMailService = localMailService ?? throw new ArgumentNullException(nameof(localMailService));
-            _localMailService = localMailService;
-            _citiesDataStore= citiesDataStore;
+            _localMailService = MailService ?? throw new ArgumentNullException(nameof(MailService));
+           
+            _citiesDataStore = citiesDataStore;
         }
 
         [HttpGet]
@@ -45,15 +51,11 @@ namespace CityInfo.API.Controllers
                 _citiesDataStore.Cities
                 .FirstOrDefault(c => c.Id == cityId);
 
+
+            //Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("zzzzzzzzzzzzzzzzzzzxxxxxxxxxxxxxxxxx");
-       
-          Console.ResetColor();
-            Console.WriteLine("zzzzzzzzzzzzzzzzzzzxxxxxxxxxxxxxxxxx");
-
-
-            LocalMailService.Email("aaaa", "bbbbbb", "ali0910hack@gmail.com");
-
+            _localMailService.Send("GetPointsOfInterest", $"CityId:{cityId}");
+            Console.ResetColor();
 
 
             if (city == null)

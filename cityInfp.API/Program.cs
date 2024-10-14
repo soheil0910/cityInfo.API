@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.StaticFiles;
 using Serilog;
 
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 Log.Logger = new LoggerConfiguration()
@@ -13,7 +14,6 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.File(builder.Configuration.GetConnectionString("FileLog_Address"), rollingInterval: RollingInterval.Day)
     .CreateLogger();
 builder.Host.UseSerilog();
-
 
 
 // Add services to the container.
@@ -41,8 +41,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
-builder.Services.AddTransient<LocalMailService>();
+builder.Services.AddTransient<IMailService, CloudMailService>();
 builder.Services.AddSingleton<CitiesDataStore>();
+
 
 var app = builder.Build();
 
