@@ -1,7 +1,9 @@
 ﻿using CityInfo.API;
+using CityInfo.API.DbContexts;
 using CityInfo.API.Services;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 
@@ -11,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
     .WriteTo.Console()
-    .WriteTo.File(builder.Configuration.GetConnectionString("FileLog_Address"), rollingInterval: RollingInterval.Day)
+    .WriteTo.File(builder.Configuration["FileLog_Address"], rollingInterval: RollingInterval.Day)
     .CreateLogger();
 builder.Host.UseSerilog();
 
@@ -43,7 +45,20 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
 builder.Services.AddTransient<IMailService, CloudMailService>();
 builder.Services.AddSingleton<CitiesDataStore>();
+//builder.Services.AddDbContext<CityInfoDbContext>(option =>
+//{
+//    option.UseSqlite("Data Source=CityInfo.db");
+//    //option.UseSqlite("Data Source=192.168.1.1;Initial  Catalog=ImanDb;User ID=iman;Password=123");
+//});
 
+builder.Services.AddDbContext<CityInfoDbContext>(option =>
+{
+    option.UseSqlite(
+        builder.Configuration.GetConnectionString("CityConnectionStringSqlLite")
+        //builder.Configuration["ConnectionStrings:CityConnectionStringSqlLite"]
+        //builder.Configuration["CityConnectionStringSqlLiteEnvironment"]//////Environment
+        );
+});
 
 var app = builder.Build();
 
