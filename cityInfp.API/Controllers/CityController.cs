@@ -1,4 +1,5 @@
 ﻿using CityInfo.API;
+using CityInfo.API.Repositoties;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CityInfo.API.Controllers
@@ -8,19 +9,20 @@ namespace CityInfo.API.Controllers
     [Route("api/[Controller]")]
     public class CityController : ControllerBase
     {
-        private readonly CitiesDataStore _citiesDataStore;
+        //private readonly CitiesDataStore _citiesDataStore;
+        private readonly ICityInfoRepository _cityInfoRepository;
 
-        public CityController(CitiesDataStore citiesDataStore)
+        public CityController(ICityInfoRepository cityInfoRepository)
         {
 
-
-            _citiesDataStore = citiesDataStore;
+            this._cityInfoRepository= cityInfoRepository;
+            //_citiesDataStore = citiesDataStore;
 
         }
 
 
         [HttpGet]
-        public ActionResult GetCity()
+        public async Task<ActionResult> GetCity()
         {
 
             //var oor= new JsonResult
@@ -33,8 +35,8 @@ namespace CityInfo.API.Controllers
             //return Ok(oor);
             ////return BadRequest(oor);
 
-
-            return Ok(_citiesDataStore.Cities);
+            return  Ok(await _cityInfoRepository.GetCitiesAsync());
+            //return Ok(_citiesDataStore.Cities);
 
         }
 
@@ -44,12 +46,9 @@ namespace CityInfo.API.Controllers
         {
             return await Task.Run(() =>
             {
-                return Ok(_citiesDataStore.Cities);
+                return Ok(_cityInfoRepository.GetCitiesAsync());
 
             });
-
-
-
         }
 
 
