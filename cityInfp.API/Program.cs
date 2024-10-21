@@ -32,6 +32,7 @@ builder.Services.AddControllers()
         ////Error Include
         options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+        
     })
     .AddXmlDataContractSerializerFormatters();
 
