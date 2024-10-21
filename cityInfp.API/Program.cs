@@ -5,6 +5,8 @@ using CityInfo.API.Services;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
 using Serilog;
 
 
@@ -24,7 +26,13 @@ builder.Host.UseSerilog();
 
 
 builder.Services.AddControllers()
-    .AddNewtonsoftJson()
+    //.AddNewtonsoftJson()
+    .AddNewtonsoftJson(options =>
+    {
+        ////Error Include
+        options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+        options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+    })
     .AddXmlDataContractSerializerFormatters();
 
 //    (options =>
