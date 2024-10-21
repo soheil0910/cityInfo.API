@@ -15,8 +15,8 @@ namespace CityInfo.API.Repositoties
         public async Task<IEnumerable<City>> GetCitiesAsync()
         {
          
-            return await _context.Cities.Include(c => c.PointOfInterest)
-                 .OrderBy(c => c.Name).ToListAsync();
+            return await _context.Cities.OrderBy(c => c.Id).Include(c => c.PointOfInterest)
+                 .ToListAsync();
         }
 
         public async Task<City?> GetCityAsync(int cityId,bool includePointsOfInterest)
