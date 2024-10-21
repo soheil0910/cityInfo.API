@@ -39,6 +39,20 @@ namespace CityInfo.API.Controllers
         }
 
 
+        [HttpGet("Async")]
+        public async Task<ActionResult> GetCityAsync()
+        {
+            return await Task.Run(() =>
+            {
+                return Ok(_citiesDataStore.Cities);
+
+            });
+
+
+
+        }
+
+
 
         //[HttpGet]
         //[HttpPost]
