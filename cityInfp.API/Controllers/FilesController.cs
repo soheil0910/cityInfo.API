@@ -35,7 +35,7 @@ namespace CityInfo.API.Controllers
             return Ok(files.Select(c => c.Substring(6)));
         }
 
-
+        //[Authorize]
         [HttpGet("{filename}")]
         public ActionResult GetFile(string filename)
         {

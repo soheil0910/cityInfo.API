@@ -25,17 +25,17 @@ namespace CityInfo.API.Controllers
         public async Task<ActionResult> GetCity()
         {
 
-            //var oor= new JsonResult
-            //    (new List<object> {
-            //   new {   name = "soheil" } ,
-            //   new {   name = "ali" }
-            //});
+            var oor = new JsonResult
+                (new List<object> {
+               new {   name = "soheil" } ,
+               new {   name = "ali" }
+            });
 
-            ////oor.StatusCode = 404;
-            //return Ok(oor);
-            ////return BadRequest(oor);
+            //oor.StatusCode = 404;
+            return Ok(oor);
+            //return BadRequest(oor);
 
-            return  Ok(await _cityInfoRepository.GetCitiesAsync());
+            return Ok(await _cityInfoRepository.GetCitiesAsync());
             //return Ok(_citiesDataStore.Cities);
 
         }

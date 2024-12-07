@@ -55,6 +55,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
 builder.Services.AddTransient<IMailService, CloudMailService>();
 builder.Services.AddSingleton<CitiesDataStore>();
+
+//Remove NuGet AutoMapper DI   Microsoft.Extensions.DependencyInjection
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
 //builder.Services.AddDbContext<CityInfoDbContext>(option =>
 //{
 //    option.UseSqlite("Data Source=CityInfo.db");
@@ -71,6 +76,50 @@ builder.Services.AddDbContext<CityInfoDbContext>(option =>
 });
 builder.Services.AddScoped<ICityInfoRepository, CityInfoRepository>();
 
+#region GetJwtUseSwagger
+
+
+//builder.Services.AddSwaggerGen(options =>
+//{
+//    options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+//    {
+//        Name = "Authorization",
+//        Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
+//        Scheme = "bearer",
+//        BearerFormat = "JWT",
+//        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+//        Description = "Please enter your JWT token in the format: Bearer {your token}"
+//    });
+
+//    options.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+//    {
+//        {
+//            new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+//            {
+//                Reference = new Microsoft.OpenApi.Models.OpenApiReference
+//                {
+//                    Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+//                    Id = "Bearer"
+//                }
+//            },
+//            new string[] {}
+//        }
+//    });
+//});
+
+
+
+
+
+
+#endregion
+
+
+
+
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -83,7 +132,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 //app.UseRouting();
+
+
+//این رو اضافه کردم برای دریافت توکن
+//app.UseAuthentication();
 app.UseAuthorization();
+
+
+
 
 //app.UseEndpoints(endpoints =>
 
